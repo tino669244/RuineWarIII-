@@ -1,150 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RuineWarIII 2025 Online</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Arial', sans-serif;
-      overflow: hidden;
-      background-color: #000;
-      color: #fff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RuineWarIII 2025 Online - Stage Template</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    overflow: hidden;
+  }
 
-    /* Intro screen */
-    #intro {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      font-size: 5em;
-      font-weight: bold;
-      animation: fadeOut 3s forwards;
-      z-index: 10;
-      position: absolute;
-      width: 100%;
-    }
+  #game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: url('https://i.imgur.com/9gHqjYx.jpg') no-repeat center center/cover;
+  }
 
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      70% { opacity: 1; }
-      100% { opacity: 0; display: none; }
-    }
+  /* Stage & Round Info */
+  #stage-info {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
 
-    /* Background war image */
-    #war-scene {
-      display: none;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('https://i.imgur.com/9gHqjYx.jpg') no-repeat center center/cover;
-      z-index: 1;
-    }
+  /* Player container */
+  .player {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+  }
 
-    /* Login form */
-    #login {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0,0,0,0.7);
-      padding: 40px;
-      border-radius: 10px;
-      text-align: center;
-      z-index: 20;
-    }
+  .player-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f00;
+    margin: 0 auto;
+    border: 2px solid #fff;
+  }
 
-    #login input {
-      display: block;
-      margin: 15px auto;
-      padding: 10px;
-      width: 250px;
-      border-radius: 5px;
-      border: none;
-      font-size: 1em;
-    }
+  .grade {
+    margin-top: 5px;
+    font-size: 0.8em;
+  }
 
-    #login button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 1em;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      background-color: #ff0000;
-      color: #fff;
-    }
+  .stars {
+    height: 10px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+  }
 
-    /* Loading bar */
-    #loading {
-      display: none;
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      height: 25px;
-      background-color: #333;
-      border-radius: 12px;
-      overflow: hidden;
-    }
+  .stars-bar {
+    height: 100%;
+    width: 0%;
+    background-color: gold;
+  }
 
-    #loading-bar {
-      width: 0%;
-      height: 100%;
-      background-color: #ff0000;
-      border-radius: 12px;
-    }
-  </style>
+  /* Round / Points Display */
+  #points {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5em;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+</style>
 </head>
 <body>
 
-  <div id="intro">Ruine War III</div>
-  <div id="war-scene"></div>
-
-  <div id="login">
-    <h2>Login to Play</h2>
-    <input type="email" placeholder="Email">
-    <button onclick="login('email')">Login with Email</button>
-    <button onclick="login('facebook')">Login with Facebook</button>
+<div id="game-container">
+  <div id="stage-info">Stage 1 - Round 1</div>
+  
+  <!-- Example players -->
+  <div class="player" style="top: 200px; left: 100px;" id="player1">
+    <div class="player-icon"></div>
+    <div class="grade">Grade 1</div>
+    <div class="stars"><div class="stars-bar" id="stars1"></div></div>
   </div>
 
-  <div id="loading">
-    <div id="loading-bar"></div>
+  <div class="player" style="top: 200px; left: 300px;" id="player2">
+    <div class="player-icon"></div>
+    <div class="grade">Grade 1</div>
+    <div class="stars"><div class="stars-bar" id="stars2"></div></div>
   </div>
 
-  <script>
-    // Show war scene after intro
-    setTimeout(() => {
-      document.getElementById('intro').style.display = 'none';
-      document.getElementById('war-scene').style.display = 'block';
-      setTimeout(() => {
-        document.getElementById('login').style.display = 'block';
-      }, 2000); // show login 2s after war image
-    }, 3000); // intro duration
+  <div class="player" style="top: 200px; left: 500px;" id="player3">
+    <div class="player-icon"></div>
+    <div class="grade">Grade 1</div>
+    <div class="stars"><div class="stars-bar" id="stars3"></div></div>
+  </div>
 
-    function login(method) {
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('loading').style.display = 'block';
-      let bar = document.getElementById('loading-bar');
-      let width = 0;
-      let interval = setInterval(() => {
-        if (width >= 100) {
-          clearInterval(interval);
-          alert("Login Successful! Start Game...");
-          // Here you can redirect to the main game page
-        } else {
-          width += 1;
-          bar.style.width = width + '%';
-        }
-      }, 30);
+  <div class="player" style="top: 200px; left: 700px;" id="player4">
+    <div class="player-icon"></div>
+    <div class="grade">Grade 1</div>
+    <div class="stars"><div class="stars-bar" id="stars4"></div></div>
+  </div>
+
+  <div id="points">Points: 0</div>
+</div>
+
+<script>
+  // Example: Stage and Round
+  let stage = 1;
+  let round = 1;
+  let points = 0;
+
+  const stageInfo = document.getElementById('stage-info');
+  const pointsDisplay = document.getElementById('points');
+
+  function nextRound() {
+    round++;
+    if (round > 5) {
+      round = 1;
+      stage++;
     }
-  </script>
+    stageInfo.textContent = `Stage ${stage} - Round ${round}`;
+  }
+
+  // Example: Add points and star progression
+  function addPoints(playerId, pts) {
+    points += pts;
+    pointsDisplay.textContent = `Points: ${points}`;
+    
+    // Update stars bar
+    const starsBar = document.getElementById(`stars${playerId}`);
+    let width = parseInt(starsBar.style.width) || 0;
+    width += pts * 2; // increase proportionally
+    if(width > 100) width = 100;
+    starsBar.style.width = width + '%';
+    
+    // Upgrade grade if stars full
+    const player = document.getElementById(`player${playerId}`);
+    if(width >= 100){
+      const gradeEl = player.querySelector('.grade');
+      let currentGrade = parseInt(gradeEl.textContent.replace('Grade ',''));
+      gradeEl.textContent = `Grade ${currentGrade+1}`;
+      starsBar.style.width = '0%';
+    }
+  }
+
+  // Example usage: simulate points for player 1 every 2s
+  setInterval(() => addPoints(1, 5), 2000);
+</script>
 
 </body>
 </html>
